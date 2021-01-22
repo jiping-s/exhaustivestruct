@@ -1,16 +1,16 @@
 # exhaustivestruct
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/mbilski/exhaustivestruct)](https://goreportcard.com/badge/github.com/mbilski/exhaustivestruct)
+Cloned from [mbilski/exhaustivestruct](https://github.com/mbilski/exhaustivestruct): a go static analysis tool to find structs that have uninitialized fields.
 
-exhaustivestruct is a go static analysis tool to find structs that have uninitialized fields.
+Changes:
 
-> :warning: This linter is meant to be used only for special cases.
-> It is not recommended to use it for all files in a project.
+- Check for private fields in the same package
+- Check for unnamed field initializations
 
 ## Installation
 
 ```
-go get -u github.com/mbilski/exhaustivestruct/cmd/exhaustivestruct
+go get -u github.com/jiping-s/exhaustivestruct/cmd/exhaustivestruct
 ```
 
 ## Usage

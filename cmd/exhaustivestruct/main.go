@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/mbilski/exhaustivestruct/pkg/analyzer"
+	"github.com/jiping-s/exhaustivestruct/pkg/analyzer"
 	"golang.org/x/tools/go/analysis/singlechecker"
 )
 

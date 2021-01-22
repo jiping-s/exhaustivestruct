@@ -1,4 +1,4 @@
-module github.com/mbilski/exhaustivestruct
+module github.com/jiping-s/exhaustivestruct
 
 go 1.15
 
