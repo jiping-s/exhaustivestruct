@@ -52,18 +52,11 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		(*ast.ReturnStmt)(nil),
 	}
 
-	var returnStmt *ast.ReturnStmt
-
 	inspector.Preorder(nodeFilter, func(node ast.Node) {
 		var name string
 
 		compositeLit, ok := node.(*ast.CompositeLit)
 		if !ok {
-			// Keep track of the last return statement whilte iterating
-			retLit, ok := node.(*ast.ReturnStmt)
-			if ok {
-				returnStmt = retLit
-			}
 			return
 		}
 
@@ -111,36 +104,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			return
 		}
 
-		// Don't report an error if:
-		// 1. This composite literal contains no fields and
-		// 2. It's in a return statement and
-		// 3. The return statement contains a non-nil error
+		// Don't report an error if this composite literal contains no fields
 		if len(compositeLit.Elts) == 0 {
-			// Check if this composite is one of the results the last return statement
-			isInResults := false
-			if returnStmt != nil {
-				for _, result := range returnStmt.Results {
-					compareComposite, ok := result.(*ast.CompositeLit)
-					if ok {
-						if compareComposite == compositeLit {
-							isInResults = true
-						}
-					}
-				}
-			}
-			nonNilError := false
-			if isInResults {
-				// Check if any of the results has an error type and if that error is set to non-nil (if it's set to nil, the type would be "untyped nil")
-				for _, result := range returnStmt.Results {
-					if pass.TypesInfo.TypeOf(result).String() == "error" {
-						nonNilError = true
-					}
-				}
-			}
-
-			if nonNilError {
-				return
-			}
+			return
 		}
 
 		samePackage := strings.HasPrefix(t.String(), pass.Pkg.Path() + ".")
