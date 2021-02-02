@@ -10,7 +10,7 @@ Changes:
 ## Installation
 
 ```
-go get -u github.com/jiping-s/exhaustivestruct/cmd/exhaustivestruct
+go get -u github.com/jiping-s/exhaustivestruct/cmd/exhaustivestruct@master
 ```
 
 ## Usage
